@@ -25,7 +25,9 @@
 #if ARDUINO >= 156 && !defined(ARDUINO_ARCH_PIC32) && !defined(ARDUINO_CI)
 extern void yield(void);
 #else
+#ifndef yield
 #define yield()
+#endif
 #endif
 
 // TODO: randomize this when not using DHCP, but how?
