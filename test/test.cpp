@@ -28,10 +28,10 @@ public:
     this->showData = showData;
     state = GODMODE();
     state->reset();
-    state->digitalPin[SS].addObserver("Ethernet", this);
+    state->digitalPin[MOSI].addObserver("Ethernet", this);
   }
 
-  ~BitCollector() { state->digitalPin[SS].removeObserver("Ethernet"); }
+  ~BitCollector() { state->digitalPin[MOSI].removeObserver("Ethernet"); }
 
   virtual void onBit(bool aBit) {
     if (aBit) {
@@ -39,7 +39,6 @@ public:
       value = (value << 1) + state->digitalPin[SS];
       value = (value << 1) + state->digitalPin[MOSI];
       value = (value << 1) + state->digitalPin[MISO];
-      value = (value << 1) + state->digitalPin[SCK];
       pinLog.push_back(value);
       if (showData) {
         std::cout.width(5);
@@ -75,25 +74,14 @@ public:
   virtual String observerName() const { return "BitCollector"; }
 };
 
-// print the output
-// log the output
-// check it
-
-//   inline void setGatewayIp(const uint8_t * addr) { writeGAR(addr); }
-unittest(GatewayIp)
+// Read the output off the Ethernet.begin() method
+unittest(test_EthernetBegin) 
 {
-  const uint8_t addr1[] = {192,168,0,1};
-  uint8_t addr2[] = {0,0,0,0};
+  uint8_t mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
   BitCollector pinValues(true, false);
-  W5100.setGatewayIp(addr1);
-  // Look and see what values got sent to the collected pins
-  W5100.getGatewayIp(addr2);
-
-  assertEqual(192, addr2[0]);
-  assertEqual(168, addr2[1]);
-  assertEqual(0, addr2[2]);
-  assertEqual(1, addr2[3]);
+  Ethernet.begin(mac);
+  std::cout << "Helloworld" << std::endl;
 }
-
 
 unittest_main()
