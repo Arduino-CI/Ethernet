@@ -15,3 +15,4 @@ vendor
 # C++ stuff
 *.bin
 *.bin.dSYM
+.DS_Store
