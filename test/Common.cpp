@@ -4,7 +4,7 @@
 
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
-#include "Ethernet.h"
+#include "Ethernet_CI.h"
 #include "ci/ObservableDataStream.h"
 #include "utility/w5100.h"
 

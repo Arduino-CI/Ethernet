@@ -1,7 +1,6 @@
 #pragma once
 #include <Ethernet.h>
-
-#ifdef MOCK_PINS_COUNT_X
+#ifdef MOCK_PINS_COUNT
 
 class EthernetUDP;
 class EthernetClient;
@@ -18,7 +17,7 @@ public:
 	static EthernetLinkStatus linkStatus();
 	static EthernetHardwareStatus hardwareStatus();
 
-	// Manaul configuration
+	// Manual configuration
 	static void begin(uint8_t *mac, IPAddress ip);
 	static void begin(uint8_t *mac, IPAddress ip, IPAddress dns);
 	static void begin(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway);
@@ -30,6 +29,8 @@ public:
 	static IPAddress subnetMask();
 	static IPAddress gatewayIP();
 	static IPAddress dnsServerIP() { return _dnsServerAddress; }
+	static uint16_t getRetransmissionTimeout() { return _retransmissionTimeout; }
+	static uint8_t getRetransmissionCount() {return _retransmissionCount; }
 
 	void setMACAddress(const uint8_t *mac_address);
 	void setLocalIP(const IPAddress local_ip);
@@ -48,6 +49,19 @@ private:
 	static IPAddress _dnsServerAddress;
 	static DhcpClass* _dhcp;
 
+	// custom testing
+	static uint8_t *_mac;
+	static unsigned long _timeout;
+	static unsigned long _responseTimeout;
+	static IPAddress _ip;
+	static IPAddress _dns;
+	static IPAddress _gateway;
+	static IPAddress _subnet;
+	static uint8_t *_mac_address;
+	static IPAddress _local_ip;
+	static uint8_t _sspin;
+	static uint16_t _retransmissionTimeout;
+	static uint8_t _retransmissionCount;
 };
 
 extern EthernetClass_CI Ethernet;

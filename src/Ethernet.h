@@ -21,7 +21,7 @@
 #ifndef ethernet_h_
 #define ethernet_h_
 
-#ifdef MOCK_PINS_COUNT_X
+#ifdef MOCK_PINS_COUNT
 #define EthernetClass_CI EthernetClass
 // #include <WString.h>
 #else
@@ -116,7 +116,7 @@ public:
 	friend class EthernetServer;
 	friend class EthernetUDP;
 
-#ifdef MOCK_PINS_COUNT_X
+#ifdef MOCK_PINS_COUNT
   virtual String className() const { return "EthernetClass_Base"; }
 #endif
 
@@ -156,7 +156,7 @@ private:
 	static void socketPortRand(uint16_t n);
 };
 
-#ifndef MOCK_PINS_COUNT_X
+#ifndef MOCK_PINS_COUNT
 extern EthernetClass_Base Ethernet;
 #endif
 

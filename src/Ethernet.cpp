@@ -242,6 +242,6 @@ void EthernetClass_Base::setRetransmissionCount(uint8_t num)
 
 
 
-#ifndef MOCK_PINS_COUNT_X
+#ifndef MOCK_PINS_COUNT
 EthernetClass_Base Ethernet;
 #endif
