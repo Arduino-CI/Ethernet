@@ -21,6 +21,13 @@
 #ifndef ethernet_h_
 #define ethernet_h_
 
+#ifdef MOCK_PINS_COUNT_X
+#define EthernetClass_CI EthernetClass
+// #include <WString.h>
+#else
+#define EthernetClass_Base EthernetClass
+#endif
+
 // All symbols exposed to Arduino sketches are contained in this header file
 //
 // Older versions had much of this stuff in EthernetClient.h, EthernetServer.h,
@@ -71,7 +78,7 @@ class EthernetClient;
 class EthernetServer;
 class DhcpClass;
 
-class EthernetClass {
+class EthernetClass_Base {
 private:
 	static IPAddress _dnsServerAddress;
 	static DhcpClass* _dhcp;
@@ -108,6 +115,11 @@ public:
 	friend class EthernetClient;
 	friend class EthernetServer;
 	friend class EthernetUDP;
+
+#ifdef MOCK_PINS_COUNT_X
+  virtual String className() const { return "EthernetClass_Base"; }
+#endif
+
 private:
 	// Opens a socket(TCP or UDP or IP_RAW mode)
 	static uint8_t socketBegin(uint8_t protocol, uint16_t port);
@@ -144,8 +156,9 @@ private:
 	static void socketPortRand(uint16_t n);
 };
 
-extern EthernetClass Ethernet;
-
+#ifndef MOCK_PINS_COUNT_X
+extern EthernetClass_Base Ethernet;
+#endif
 
 #define UDP_TX_PACKET_MAX_SIZE 24
 
