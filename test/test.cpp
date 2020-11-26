@@ -122,15 +122,35 @@ unittest(Client_Stop) {
 }
 
 unittest(Client_AvailableForWrite) {
-  assertTrue(false);
+  Ethernet.begin(mac,ip);
+  EthernetClient client;
+  EthernetClient::startMockServer(server,80);
+  int result = client.connect(server, 80);
+  assertNotEqual(1024*1023,client.availableForWrite());
+  assertEqual(1024*1024,client.availableForWrite());
 }
 
 unittest(Client_Peek) {
-  assertTrue(false);
+  Ethernet.begin(mac,ip);
+  EthernetClient client;
+  EthernetClient::startMockServer(server,80);
+  int result = client.connect(server, 80);
+  assertEqual(SUCCESS,result);
+
+  assertEqual(-1,client.peek());
+
+  client.pushToReadBuffer('A');
+  assertEqual('A',client.peek());
 }
 
 unittest(Client_Connected) {
-  assertTrue(false);
+  Ethernet.begin(mac,ip);
+  EthernetClient client;
+  assertFalse(client.connected());
+
+  EthernetClient::startMockServer(server,80);
+  int result = client.connect(server, 80);
+  assertTrue(client.connected());
 }
 
 unittest_main()

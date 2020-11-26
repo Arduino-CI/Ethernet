@@ -59,14 +59,12 @@ public:
   virtual bool operator==(const EthernetClient& rhs) { return _localPort == rhs.localPort(); }
   virtual bool operator!=(const EthernetClient& rhs)
      { return !this->operator==(rhs); }
-  // uint8_t getSocketNumber() const { return sockindex; }
   virtual uint16_t localPort() const { return _localPort; };
 
   virtual IPAddress remoteIP() const { return peer.ip; }
   virtual uint16_t remotePort() const { return peer.port; }
   virtual std::vector<mockServer> testServers() { return mockServers; }
   virtual mockServer serverPeer() { return peer; }
-  // virtual void setConnectionTimeout(uint16_t timeout) { _timeout = timeout; }
 
   friend class EthernetServer;
 
